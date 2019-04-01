@@ -1,0 +1,26 @@
+service: evi-auth
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+
+# you can overwrite defaults here
+  stage: prod
+  region: eu-west-1
+
+  environment:
+    CLIENT_SECRET: EOu8Ejj1XfAkSgHKdde4iphG4idA0Q3dDjdlWSe5
+    CLIENT_ID: e5e77f49c50041a68164dce7d9eb07ac
+
+functions:
+  fetchaccesstoken:
+    handler: index.main
+    events:
+      - http:
+          path: /auth
+          method: get
+          cors: true
+          request:
+            parameters:
+              querystrings:
+                code: true
